@@ -1,0 +1,74 @@
+<script>
+  const navToggle = document.querySelector('[aria-controls="primary-nav"]');
+
+  navToggle.addEventListener("click", () => {
+    const navOpened = navToggle.getAttribute("aria-expanded");
+    if (navOpened === "false") {
+      navToggle.setAttribute("aria-expanded", "true");
+    } else {
+      navToggle.setAttribute("aria-expanded", "false");
+    }
+  });
+</script>
+
+<header>
+  <a href="#main-content" class="skip-to-main">Skip to main content</a>
+  <a href="/" class="logo"> <img src="/images/logo.svg" alt="" /></a>
+
+  <button aria-controls="primary-nav" aria-expanded="false">
+    <img class="icon-hamburger" src="/images/icon-menu.svg" alt="">
+    <img class="icon-close" src="/images/icon-menu-close.svg" alt="">
+    <span class="visually-hidden">Menu</span>
+  </button>
+
+  <nav id="primary-nav">
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="#">New</a></li>
+      <li><a href="#">Popular</a></li>
+      <li><a href="#">Trending</a></li>
+      <li><a href="#">Categories</a></li>
+    </ul>
+  </nav>
+</header>
+
+<style>
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-block: clamp(1.5rem, 5vmax, 5rem) clamp(1.5rem, 5vmax, 2rem);
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 1rem;
+  }
+
+  a {
+    text-decoration: none;
+    color: currentColor;
+
+    &:hover,
+    &:focus-visible {
+      color: var(--clr-accent);
+    }
+  }
+
+  .skip-to-main {
+    position: absolute;
+    font-weight: var(--fw-bold);
+    padding: 1em 3em;
+    translate: -200%;
+
+    &:hover,
+    &:focus-visible {
+      background: var(--clr-accent);
+      color: var(--clr-neutral-900);
+      translate: 0;
+    }
+  }
+</style>

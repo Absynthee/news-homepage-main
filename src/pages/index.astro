@@ -1,16 +1,65 @@
 ---
+import FeaturedArticle from "../components/FeaturedArticle.astro";
+import PopularArticles from "../components/PopularArticles.astro";
+import PrimaryLayout from "../layouts/PrimaryLayout.astro";
+const title = "FEM Blog with CMS";
 
+import fetchArticles from "../lib/fetchArticles";
+const { class: className } = Astro.props;
+
+const newArticles = await fetchArticles({ count: 3 });
+// const articleContent = featuredArticle[0].data;
+// console.log(featuredArticle)
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<PrimaryLayout title="Homepage">
+  <!-- Header -->
+  <h1 class="visually-hidden">The W.</h1>
+
+  <!-- 3-col -->
+  <div class="three-col section">
+    <FeaturedArticle class="span-2" />
+    <div class="inverted flow">
+      <h2 class="accent-color">New</h2>
+      <ul role="list" class="seperated-list">
+        {newArticles.map((article) => (
+          <li>
+            <article class="flow">
+              <h3><a href={`/article/${article.data.slug}`}>{article.data.title}</a></h3>
+              <p>{article.data.content}</p>
+            </article>
+          </li>
+
+        ))}
+        <!-- <li>
+          <article class="flow">
+            <h3><a href="#">Hydrogen VS Electric Cars</a></h3>
+            <p>Will hydrogen-fueled cars ever catch up to EVs?</p>
+          </article>
+        </li>
+        <li>
+          <article class="flow">
+            <h3><a href="#">The Downsides of AI Artistry</a></h3>
+            <p>
+              What are the possible adverse effects of on-demand AI image
+              generation?
+            </p>
+          </article>
+        </li>
+        <li>
+          <article class="flow">
+            <h3><a href="#">Is VC Funding Drying Up?</a></h3>
+            <p>
+              Private funding by VC firms is down 50% YOY. We take a look at
+              what that means.
+            </p>
+          </article>
+        </li> -->
+      </ul>
+    </div>
+  </div>
+
+  <PopularArticles class="three-col section" />
+
+  <div></div>
+</PrimaryLayout>
